@@ -12,17 +12,12 @@ namespace KT.JwtProje.Business.Concrete
     public class GenericManager<TEntity> : IGenericService<TEntity> where TEntity : class, ITable, new()
     {
         private readonly IGenericDal<TEntity> _genericDal;
-        private IGenericDal<AppUserRole> genericDal;
 
         public GenericManager(IGenericDal<TEntity> genericDal)
         {
             _genericDal = genericDal;
         }
 
-        public GenericManager(IGenericDal<AppUserRole> genericDal)
-        {
-            this.genericDal = genericDal;
-        }
 
         public async Task Add(TEntity entity)
         {
