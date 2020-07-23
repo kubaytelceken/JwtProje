@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using KT.JwtProje.Entities.Concrete;
+using KT.JwtProje.Entities.DTOs.AppUserDtos;
 using KT.JwtProje.Entities.DTOs.ProductDtos;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace KT.JwtProje.WebApi.Mapping.AutoMapperProfile
 
             CreateMap<ProductUpdateDto, Product>();
             CreateMap<Product, ProductUpdateDto>();
+
+            CreateMap<AppUserAddDto, AppUser>();
+            CreateMap<AppUser, AppUserAddDto>();
         }
     }
 }

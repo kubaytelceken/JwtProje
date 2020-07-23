@@ -11,5 +11,6 @@ namespace KT.JwtProje.Business.Interfaces
     {
         Task<AppUser> FindByUserName(string userName);
         Task<bool> CheckPassword(AppUserLoginDto appUserLoginDto);
+        Task<List<AppRole>> GetRolesByUserName(string userName);
     }
 }

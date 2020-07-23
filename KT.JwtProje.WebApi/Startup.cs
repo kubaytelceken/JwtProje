@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using KT.JwtProje.Business.Containers.MicrosoftIoc;
+using KT.JwtProje.Business.Interfaces;
 using KT.JwtProje.Business.StringInfos;
 using KT.JwtProje.WebApi.CustomFilters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -52,7 +53,7 @@ namespace KT.JwtProje.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAppUserService appUserService, IAppUserRoleService appUserRoleService, IAppRoleService appRoleService)
         {
             //if (env.IsDevelopment())
             //{
@@ -61,6 +62,7 @@ namespace KT.JwtProje.WebApi
 
             //localhost/error
             app.UseExceptionHandler("/Error");
+            JwtIdentityInitializer.Seed(appUserService, appUserRoleService, appRoleService).Wait();
 
             app.UseRouting();
             app.UseAuthentication();

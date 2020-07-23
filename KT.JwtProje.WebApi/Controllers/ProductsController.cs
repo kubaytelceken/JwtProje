@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using KT.JwtProje.Business.Interfaces;
+using KT.JwtProje.Business.StringInfos;
 using KT.JwtProje.Entities.Concrete;
 using KT.JwtProje.Entities.DTOs.ProductDtos;
 using KT.JwtProje.WebApi.CustomFilters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +29,7 @@ namespace KT.JwtProje.WebApi.Controllers
 
         //api/products
         [HttpGet]
+        [Authorize(Roles=RoleInfo.Admin+","+RoleInfo.Member)]
         public async Task<IActionResult> GetAll()
         {
             var products = await _productService.GetAll();
@@ -36,6 +39,7 @@ namespace KT.JwtProje.WebApi.Controllers
         //api/products/id
         [HttpGet("{id}")]
         [ServiceFilter(typeof(ValidId<Product>))]
+        [Authorize(Roles = RoleInfo.Admin)]
         public async Task<IActionResult> GetById(int id)
         {
             var product = await _productService.GetById(id);
@@ -43,6 +47,7 @@ namespace KT.JwtProje.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleInfo.Admin)]
         [ValidModel]
         public async Task<IActionResult> Add(ProductAddDto productAddDto)
         {
@@ -51,14 +56,16 @@ namespace KT.JwtProje.WebApi.Controllers
         }
 
         [HttpPut]
-        [ServiceFilter(typeof(ValidId<Product>))]
+        [Authorize(Roles = RoleInfo.Admin)]
+        [ValidModel]
         public async Task<IActionResult> Update(ProductUpdateDto productUpdateDto)
         {
             await _productService.Update(_mapper.Map<Product>(productUpdateDto));
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
+        [Authorize(Roles = RoleInfo.Admin)]
         [ServiceFilter(typeof(ValidId<Product>))]
         public async Task<IActionResult> Delete(int id)
         {

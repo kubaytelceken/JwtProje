@@ -26,14 +26,14 @@ namespace KT.JwtProje.Business.Concrete
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, appUser.UserName));
             claims.Add(new Claim(ClaimTypes.NameIdentifier, appUser.Id.ToString()));
-            //if (appRoles.Count > 0)
-            //{
-            //    foreach (var role in appRoles)
-            //    {
-            //        claims.Add(new Claim(ClaimTypes.Role, role.Name));
-            //    }
-                
-            //}
+            if (appRoles?.Count > 0)
+            {
+                foreach (var role in appRoles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role.Name));
+                }
+
+            }
             return claims; 
         }
     }

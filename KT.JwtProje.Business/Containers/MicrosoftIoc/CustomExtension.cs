@@ -38,6 +38,8 @@ namespace KT.JwtProje.Business.Containers.MicrosoftIoc
             services.AddTransient<IValidator<ProductAddDto>, ProductAddDtoValidator>();
             services.AddTransient<IValidator<ProductUpdateDto>, ProductUpdateDtoValidator>();
             services.AddTransient<IValidator<AppUserLoginDto>, AppUserLoginDtoValidator>();
+            services.AddTransient<IValidator<AppUserAddDto>, AppUserAddDtoValidator>();
+
         }
     }
 }
